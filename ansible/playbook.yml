@@ -1,0 +1,32 @@
+---
+- name: Install nginx
+  hosts: localhost
+  become: yes
+  vars:
+    domain_name: "{{ domain_name }}"
+    email: "{{ email}}"
+  tasks:
+    - name: Install certbot
+      apt:
+        name: certbot
+        state: present
+
+    - name: Install certbot-nginx
+      apt:
+        name: python3-certbot-nginx
+        state: present
+
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: start the nginx service
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: create and install ssl cert for domain
+      command: |
+        certbot --nginx -d {{ domain_name }} --non-interactive --agree-tos --email {{ email }} --force-renewal
