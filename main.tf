@@ -14,15 +14,11 @@ module "ec2" {
 
 module "dns" {
   source = "./modules/dns"
-  dmz = "ops.clbro.com"
-  domain-name = "public.ops.clbro.com"
+  dmz = var.dmz
+  domain-name = var.domain-name
   ec2-public-ip = module.ec2.public_ip
 }
 
 output "ec2-public-ip" {
   value = module.ec2.public_ip
-}
-
-output "dns-nameservers" {
-  value = module.dns.route53_nameservers
 }

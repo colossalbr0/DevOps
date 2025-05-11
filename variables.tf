@@ -7,3 +7,13 @@ variable "cloudflare-api-token" {
     type = string
     sensitive = true
 }
+
+variable "dmz" {
+    type = string
+    default = "ops.clbro.com"
+}
+
+variable "domain-name" {
+    type = string
+    default = "public.ops.clbro.com"
+}
