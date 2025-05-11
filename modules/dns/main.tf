@@ -13,7 +13,7 @@ resource "aws_route53_zone" "public_zone" {
 
 resource "aws_route53_record" "nginx" {
   zone_id = aws_route53_zone.public_zone.zone_id
-  name    = var.domain-name
+  name    = var.sub-domain-name
   type    = "A"
   ttl     = "300"
   records = [

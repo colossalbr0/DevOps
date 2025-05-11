@@ -2,7 +2,7 @@ variable "dmz" {
     type = string
 }
 
-variable "domain-name" {
+variable "sub-domain-name" {
     type = string
 }
 

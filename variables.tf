@@ -13,7 +13,7 @@ variable "dmz" {
     default = "ops.clbro.com"
 }
 
-variable "domain-name" {
+variable "sub-domain-name" {
     type = string
     default = "public.ops.clbro.com"
 }

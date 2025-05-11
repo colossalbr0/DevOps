@@ -15,7 +15,7 @@ module "ec2" {
 module "dns" {
   source = "./modules/dns"
   dmz = var.dmz
-  domain-name = var.domain-name
+  sub-domain-name = var.sub-domain-name
   ec2-public-ip = module.ec2.public_ip
 }
 
