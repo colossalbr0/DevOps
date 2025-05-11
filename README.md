@@ -38,6 +38,16 @@ cloudflare-zone-id = "your-api-token"
 cloudflare-api-token = "your-account-id"
 ```
 
+This project assumes your domain name is managed by cloudflare. As such, you also need to set the dmz and sub-domain-name variables in the ```main.tf``` at the root level.
+```hcl
+module "dns" {
+  source = "./modules/dns"
+  dmz = var.dmz
+  sub-domain-name = var.sub-domain-name   #replace this with your domnain name, e.g example.com
+  ec2-public-ip = module.ec2.public_ip    #replace the subdomain that'll point to your EC2 instance, e.g ec2.example.com
+}
+```
+
 ## Infrastructure Components
 
 ### Networking Module
