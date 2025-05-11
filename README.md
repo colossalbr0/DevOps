@@ -11,9 +11,8 @@ This project automates the deployment of a web server infrastructure on AWS usin
 ├── terraform.tfvars        # Variable values (gitignored)
 ├── modules/
 │   ├── networking/        # VPC, Subnet, Security Groups
-│   ├── ec2/              # EC2 Instance configuration
-│   ├── dns/              # Route53 DNS management
-│   └── cloudflare/       # Cloudflare DNS management
+│   ├── ec2/               # EC2 Instance configuration
+│   └── dns/               # Route53 & Cloudflare DNS management
 ├── ansible/
 │   └── playbook.yml      # Nginx and SSL configuration
 └── scripts/
