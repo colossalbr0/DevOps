@@ -1,6 +1,6 @@
 # AWS Infrastructure with Terraform and Ansible
 
-This project automates the deployment of a web server infrastructure on AWS using Terraform for infrastructure provisioning and Ansible for configuration management. It includes automatic DNS management through Cloudflare and SSL certificate provisioning.
+This project automates the deployment of a web server infrastructure on AWS using Terraform for infrastructure provisioning and Ansible for configuration management. It includes automatic SSL certificate provisioning and NS records creation on cloudflare, allowing Route53 to manage the domain of choice.
 
 ## Project Structure
 
@@ -24,25 +24,18 @@ This project automates the deployment of a web server infrastructure on AWS usin
 
 - Terraform >= 1.0.0
 - AWS CLI configured with appropriate credentials
-- Cloudflare API token
+- A registered domain
+- Cloudflare API token (assuming cloudflare is used to manage your domain name)
+- Cloudflare Zone ID (also assuming cloudflare is used to manage your domain name)
 - Ansible >= 2.9.0
 
 ## Required Variables
-
 Create a `terraform.tfvars` file with the following variables:
 
 ```hcl
-# AWS Configuration
-aws_region = "us-east-1"
-
 # Cloudflare Configuration
-cloudflare_api_token = "your-api-token"
-cloudflare_account_id = "your-account-id"
-
-# Domain Configuration
-domain_name = "yourdomain.com"
-subdomain = "www"
-email = "your-email@domain.com"
+cloudflare-zone-id = "your-api-token"
+cloudflare-api-token = "your-account-id"
 ```
 
 ## Infrastructure Components
@@ -61,12 +54,9 @@ email = "your-email@domain.com"
 ### DNS Module
 - Route53 public hosted zone
 - A records for domain and subdomain
-- Automatic DNS record management
-
-### Cloudflare Module
-- Automatic DNS record creation
+- Automatic DNS record management 
+- Automatic DNS (NS) record creation on cloudflare 
 - SSL/TLS configuration
-- Proxy configuration
 
 ## Usage
 
@@ -94,65 +84,6 @@ terraform destroy
 
 - **Automated Infrastructure**: Complete infrastructure provisioning with a single command
 - **SSL Certificates**: Automatic SSL certificate provisioning using Certbot
-- **DNS Management**: Automatic DNS record management through Cloudflare
+- **DNS Management**: Automatic DNS NS management through Cloudflare
 - **Security**: Proper security group configuration and SSL/TLS setup
 - **Scalability**: Modular design allows for easy scaling and modification
-
-## Security Considerations
-
-- SSH access is restricted to specific IP ranges
-- SSL/TLS is enabled by default
-- Security groups are configured with minimal required access
-- Sensitive variables are marked as sensitive in Terraform
-
-## Maintenance
-
-### Adding New Domains
-1. Update the `terraform.tfvars` file with new domain information
-2. Run `terraform apply`
-
-### Updating SSL Certificates
-- Certificates are automatically renewed by Certbot
-- Manual renewal can be triggered through Ansible
-
-### Scaling
-- The modular design allows for easy addition of new instances
-- DNS records are automatically updated for new instances
-
-## Troubleshooting
-
-### Common Issues
-
-1. **SSL Certificate Issues**
-   - Check Certbot logs: `sudo certbot certificates`
-   - Verify DNS propagation
-   - Check security group rules
-
-2. **DNS Propagation**
-   - Verify Cloudflare configuration
-   - Check DNS record TTL
-   - Verify domain registration
-
-3. **Instance Access**
-   - Verify security group rules
-   - Check instance status
-   - Verify SSH key configuration
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Terraform AWS Provider
-- Cloudflare Provider
-- Ansible
-- Certbot 
