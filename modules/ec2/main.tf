@@ -1,7 +1,3 @@
-module "networking" {
-  source = "../networking"
-}
-
 data "aws_ami" "ubuntu" {
     most_recent = true
 
